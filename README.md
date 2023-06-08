@@ -14,8 +14,7 @@ emits an event when the save button is clicked, providing the ability to capture
 
 ## Usage
 
-1. Include the `widget.js` file in your HTML file using a `
-<script>` tag.
+1. Include the `widget.js` file in your HTML file using a `<script>` tag.
 2. Initialize the widget by calling the `LabelWidget.init()` method with the ID of the container element.
 3. Listen for the `labelsSaved` event on the container element to capture the label data.
 4. Customize the CSS styles within the `widget.js` file to match your desired widget appearance.
