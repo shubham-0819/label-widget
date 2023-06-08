@@ -210,7 +210,6 @@
 
         const labelDelete = document.createElement("span");
         labelDelete.className = "label-delete";
-        console.log(container);
         const deleteSVG = container.querySelector("#dustbin-icon").outerHTML;
         labelDelete.innerHTML = deleteSVG;
 
