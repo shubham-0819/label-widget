@@ -1,10 +1,9 @@
-const labelInput = document.getElementById('label-input');
-const labelList = document.getElementById('label-list');
-const labelCount = document.getElementById('label-count');
-const saveButton = document.getElementById('save-button');
+const labelInput = document.getElementById("label-input");
+const labelList = document.getElementById("label-list");
+const labelCount = document.getElementById("label-count");
+const saveButton = document.getElementById("save-button");
 
-
-saveButton.addEventListener('click', () => {
+saveButton.addEventListener("click", () => {
   exportLabels();
 });
 
@@ -12,19 +11,19 @@ let totalLabels = 0;
 const labelNames = new Set(); // Set to store unique label names
 const labelColors = new Set(); // Set to store unique label colors
 
-labelInput.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
+labelInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
     const labelText = labelInput.value.trim(); // Remove leading/trailing whitespace
 
-    if (labelText !== '') {
+    if (labelText !== "") {
       if (!labelNames.has(labelText)) {
         createLabelBadge(labelText);
-        labelInput.value = '';
+        labelInput.value = "";
       } else {
-        console.log('Label name must be unique');
+        console.log("Label name must be unique");
       }
     } else {
-      console.log('Label name cannot be blank');
+      console.log("Label name cannot be blank");
     }
   }
 });
@@ -33,14 +32,14 @@ let isResizing = false;
 let startY = 0;
 let startHeight = 0;
 
-labelInput.addEventListener('mousedown', (event) => {
+labelInput.addEventListener("mousedown", (event) => {
   if (event.target === labelInput) {
     isResizing = true;
     startY = event.clientY;
     startHeight = labelInput.offsetHeight;
 
-    document.addEventListener('mousemove', resizeInputHeight);
-    document.addEventListener('mouseup', stopResizeInputHeight);
+    document.addEventListener("mousemove", resizeInputHeight);
+    document.addEventListener("mouseup", stopResizeInputHeight);
   }
 });
 
@@ -53,27 +52,27 @@ function resizeInputHeight(event) {
 
 function stopResizeInputHeight() {
   isResizing = false;
-  document.removeEventListener('mousemove', resizeInputHeight);
-  document.removeEventListener('mouseup', stopResizeInputHeight);
+  document.removeEventListener("mousemove", resizeInputHeight);
+  document.removeEventListener("mouseup", stopResizeInputHeight);
 }
 
 function createLabelBadge(text) {
-  const badge = document.createElement('div');
-  badge.className = 'label-badge';
+  const badge = document.createElement("div");
+  badge.className = "label-badge";
   const color = getRandomColor();
 
   if (!labelColors.has(color)) {
     badge.style.backgroundColor = `hsla(${color.hue}, ${color.saturation}%, ${color.lightness}%, 0.2)`;
     badge.style.borderLeftColor = `hsla(${color.hue}, ${color.saturation}%, ${color.lightness}%, 1)`;
 
-    const labelText = document.createElement('span');
-    labelText.className = 'label-text';
+    const labelText = document.createElement("span");
+    labelText.className = "label-text";
     labelText.innerText = text;
 
-    const labelDelete = document.createElement('span');
-    labelDelete.className = 'label-delete';
-    labelDelete.innerHTML = document.getElementById('dustbin-icon').outerHTML;
-    labelDelete.addEventListener('click', () => {
+    const labelDelete = document.createElement("span");
+    labelDelete.className = "label-delete";
+    labelDelete.innerHTML = document.getElementById("dustbin-icon").outerHTML;
+    labelDelete.addEventListener("click", () => {
       labelList.removeChild(badge);
       updateLabelCount(-1);
       labelNames.delete(text);
@@ -87,7 +86,7 @@ function createLabelBadge(text) {
     labelNames.add(text);
     labelColors.add(color);
   } else {
-    alert('Label color must be unique');
+    alert("Label color must be unique");
   }
 }
 
@@ -106,21 +105,21 @@ function getRandomColor() {
 
 function exportLabels() {
   const labels = [];
-  const labelBadges = labelList.querySelectorAll('.label-badge');
+  const labelBadges = labelList.querySelectorAll(".label-badge");
 
   labelBadges.forEach((badge) => {
-    const labelText = badge.querySelector('.label-text').innerText;
+    const labelText = badge.querySelector(".label-text").innerText;
     const backgroundColor = badge.style.backgroundColor;
     const borderColor = badge.style.borderLeftColor;
 
     const label = {
       text: labelText,
       backgroundColor: backgroundColor,
-      borderColor: borderColor
+      borderColor: borderColor,
     };
 
     labels.push(label);
   });
 
-  console.log(labels);
-}
+  return labels;
+}``
